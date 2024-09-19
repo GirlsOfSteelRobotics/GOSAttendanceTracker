@@ -129,7 +129,9 @@ class MyTableWidget(QWidget):
         self.btn_clear_gos_name = QPushButton("Clear")
         self.btn_clear_gos_name.setStyleSheet("font-size: 25pt;")
         self.btn_clear_gos_name.clicked.connect(self.input_gos_name.clear)
-        self.btn_clear_gos_name.clicked.connect(lambda: self.message_gos_login.setText(""))
+        self.btn_clear_gos_name.clicked.connect(
+            lambda: self.message_gos_login.setText("")
+        )
         self.input_area_gos_login.layout.addWidget(self.btn_clear_gos_name, 2, 1)
 
         self.message_gos_login = QLabel("")
@@ -151,7 +153,9 @@ class MyTableWidget(QWidget):
         self.header_lookup_fob.setStyleSheet("font-size: 35pt;")
         self.tab_lookup_fob.layout.addWidget(self.header_lookup_fob, 1, 1)
 
-        self.instructions_lookup_fob = QLabel("Type your full name below. (Ex: Rosie Riveter)")
+        self.instructions_lookup_fob = QLabel(
+            "Type your full name below. (Ex: Rosie Riveter)"
+        )
         self.instructions_lookup_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.instructions_lookup_fob.setStyleSheet("font-size: 25pt;")
         self.tab_lookup_fob.layout.addWidget(self.instructions_lookup_fob, 2, 1)
@@ -177,7 +181,9 @@ class MyTableWidget(QWidget):
 
         self.btn_clear_lookup_fob = QPushButton("Clear")
         self.btn_clear_lookup_fob.clicked.connect(self.input_fob_lookup.clear)
-        self.btn_clear_lookup_fob.clicked.connect(lambda: self.message_fob_lookup.setText(""))
+        self.btn_clear_lookup_fob.clicked.connect(
+            lambda: self.message_fob_lookup.setText("")
+        )
         self.btn_clear_lookup_fob.setStyleSheet("font-size: 25pt;")
         self.input_area_lookup_fob.layout.addWidget(self.btn_clear_lookup_fob, 2, 1)
 
@@ -203,7 +209,9 @@ class MyTableWidget(QWidget):
         self.header_lost_fob.setStyleSheet("font-size: 35pt;")
         self.tab_identify_fob.layout.addWidget(self.header_lost_fob, 1, 1)
 
-        self.instructions_lost_fob = QLabel("Scan the fob and find out who it belongs to!")
+        self.instructions_lost_fob = QLabel(
+            "Scan the fob and find out who it belongs to!"
+        )
         self.instructions_lost_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.instructions_lost_fob.setStyleSheet("font-size: 25pt;")
         self.tab_identify_fob.layout.addWidget(self.instructions_lost_fob, 2, 1)
@@ -364,7 +372,9 @@ class MyTableWidget(QWidget):
         self.btn_clear_field_builder = QPushButton("Clear")
         self.btn_clear_field_builder.setStyleSheet("font-size: 25pt;")
         self.btn_clear_field_builder.clicked.connect(self.input_gos_name.clear)
-        self.btn_clear_field_builder.clicked.connect(lambda: self.message_builder.setText(""))
+        self.btn_clear_field_builder.clicked.connect(
+            lambda: self.message_builder.setText("")
+        )
         self.inputArea5.layout.addWidget(self.btn_clear_gos_name, 2, 1)
 
         self.message_builder = QLabel("")
@@ -454,10 +464,14 @@ class MyTableWidget(QWidget):
         if name != None:
 
             self.input_identify_fob.clear()
-            self.message_identify_fob.setText("Fob " + str(ID) + " belongs to " + name + ".")
+            self.message_identify_fob.setText(
+                "Fob " + str(ID) + " belongs to " + name + "."
+            )
 
         else:
-            self.message_identify_fob.setText("Error! ID number is not associated with a name.")
+            self.message_identify_fob.setText(
+                "Error! ID number is not associated with a name."
+            )
             self.input_identify_fob.clear()
 
     def logVisit(self):
