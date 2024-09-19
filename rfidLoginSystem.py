@@ -4,11 +4,8 @@
 
 import sys
 
-import gspread
-
 from PyQt6.QtWidgets import (
     QMainWindow,
-    QApplication,
     QPushButton,
     QWidget,
     QTabWidget,
@@ -24,14 +21,15 @@ from PyQt6.QtGui import QPixmap, QFont
 
 from PyQt6.QtCore import Qt
 
-import datetime as dt
 
+from backend.backend import Backend
+from backend.local_backend import LocalBackend
+from backend.sheets_backend import GoogleSheetsBackend
 
 # -----------------------------------------------------------------------
 # GLOBAL VARIABLES
 # -----------------------------------------------------------------------
 
-SPREADSHEET_KEY = "1ztlyayX_A59oDQQsRPfWNKSZ-efkdWKgML-J9WtB66s"
 WIDTH = 800
 HEIGHT = 400
 
@@ -41,7 +39,7 @@ HEIGHT = 400
 # -----------------------------------------------------------------------
 class App(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, backend: Backend):
         super().__init__()
         self.title = "Girls of Steel Meeting Login"
         self.left = 0
@@ -53,7 +51,7 @@ class App(QMainWindow):
         self.setStyleSheet("background-color: #ff837a; font-size: 20pt;")
         self.showMaximized()
 
-        self.table_widget = MyTableWidget(self)
+        self.table_widget = MyTableWidget(self, backend=backend)
         self.setCentralWidget(self.table_widget)
 
         self.show()
@@ -61,8 +59,11 @@ class App(QMainWindow):
 
 class MyTableWidget(QWidget):
 
-    def __init__(self, parent):
+    def __init__(self, parent, backend: Backend):
         super(QWidget, self).__init__(parent)
+
+        self.backend = backend
+
         self.layout = QVBoxLayout(self)
 
         # Initialize tab screen
@@ -406,11 +407,10 @@ class MyTableWidget(QWidget):
         except:
             self.message_gos_login.setText("Make sure the input is a number.")
 
-        name = lookupName(ID)
+        name = self.backend.name_from_fob_id(ID)
 
-        if name != None:
-
-            logAttendance(SPREADSHEET_KEY, name, ID)
+        if name is not None:
+            self.backend.log_attendance(name, ID)
             self.input_gos_name.clear()
             self.message_gos_login.setText(name + " is logged in.")
 
@@ -422,13 +422,13 @@ class MyTableWidget(QWidget):
     def searchID(self):
         # print("HI")
         name = self.input_fob_lookup.text()
-        ID = lookupID(name)
+        ID = self.backend.fob_id_from_name(name)
 
         if name == "":
             self.message_fob_lookup.setText("")
             return None
 
-        if ID != None:
+        if ID is not None:
 
             print("Name: " + name)
             self.input_fob_lookup.clear()
@@ -436,7 +436,7 @@ class MyTableWidget(QWidget):
             self.input_fob_lookup.setFocus()
 
             # Log in the user, then switch back to the main tab
-            logAttendance(SPREADSHEET_KEY, name, ID)
+            self.backend.log_attendance(name, ID)
             self.tabs.setCurrentIndex(0)
             self.input_gos_name.clear()
             self.message_gos_login.setText(name + " is logged in.")
@@ -459,7 +459,7 @@ class MyTableWidget(QWidget):
         except:
             self.message_identify_fob.setText("Make sure the input is a number.")
 
-        name = lookupName(ID)
+        name = self.backend.name_from_fob_id(ID)
 
         if name != None:
 
@@ -488,7 +488,7 @@ class MyTableWidget(QWidget):
             )
             return None
 
-        logVisitor(SPREADSHEET_KEY, name, team)
+        self.backend.log_visitor(name, team)
         self.input_visit_name.clear()
         self.input_visit_team.clear()
         self.message_visit.setText("Welcome " + name + "!")
@@ -502,88 +502,25 @@ class MyTableWidget(QWidget):
             return None
 
         else:
-
-            logBuilderInSheet(SPREADSHEET_KEY, name)
+            self.backend.log_field_builder(name)
             self.input_builder_name.clear()
             self.message_builder.setText(name + " is logged in.")
             self.input_builder_name.setFocus()
 
 
 # -----------------------------------------------------------------------
-# GOOGLE SPREADSHEET CODE
-# -----------------------------------------------------------------------
-
-##def lookupID(fname, lname):
-##    pass
-##
-
-
-def lookupName(idNumber):
-    # print(ids)
-    for i in range(len(ids)):
-        # print (ids[i])
-        if ids[i] == idNumber:
-            return firstNames[i] + " " + lastNames[i]
-
-    return None
-
-
-def lookupID(name):
-    for i in range(len(firstNames)):
-        if (firstNames[i] + " " + lastNames[i]) == name:
-            return ids[i]
-
-    return None
-
-
-def updateIDData(SK):
-    sh = gc.open_by_key(SK)
-
-    wl = sh.worksheet("Member Database")
-    # print(wl)
-
-    # print(ds)
-    ln = wl.col_values(1)[1:]
-    fn = wl.col_values(2)[1:]
-    newIDs = wl.col_values(4)[1:]
-    # print(newIDs)
-
-    for i in range(len(newIDs)):
-        newIDs[i] = int(newIDs[i])
-
-    return ln, fn, newIDs
-
-
-def logAttendance(SK, name, ID):
-    sh = gc.open_by_key(SK)
-    date = dt.datetime.now()
-    ds = sh.worksheet("GoS Attendance")
-    ds.append_row([date.strftime("%c"), ID, name, "General Meeting"])
-
-
-def logVisitor(SK, name, team):
-    sh = gc.open_by_key(SK)
-    date = dt.datetime.now()
-    ds = sh.worksheet("SCRA Visitor Attendance")
-    ds.append_row([date.strftime("%c"), team, name, "SCRA Open Meeting"])
-
-
-def logBuilderInSheet(SK, name):
-    sh = gc.open_by_key(SK)
-    date = dt.datetime.now()
-    ds = sh.worksheet("Field Builder Attendance")
-    ds.append_row([date.strftime("%c"), name])
-
-
-# -----------------------------------------------------------------------
 # MAIN
 # -----------------------------------------------------------------------
-if __name__ == "__main__":
+
+def main():
+    backend = GoogleSheetsBackend()
+    # backend = LocalBackend()
+
     app = QApplication(sys.argv)
-    ex = App()
-
-    gc = gspread.service_account(filename="credentials.json")
-
-    lastNames, firstNames, ids = updateIDData(SPREADSHEET_KEY)
+    ex = App(backend=backend)
 
     sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()
