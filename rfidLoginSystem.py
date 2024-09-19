@@ -425,6 +425,12 @@ class MyTableWidget(QWidget):
             self.message2.setText("ID Number: " + str(ID))
             self.input2.setFocus()
 
+            # Log in the user, then switch back to the main tab
+            logAttendance(SPREADSHEET_KEY, name, ID)
+            self.tabs.setCurrentIndex(0)
+            self.input.clear()
+            self.message.setText(name + " is logged in.")
+
         else:
             print("Error! ID number is not associated with a name.")
             self.message2.setText("Error! Name not found in database.")
