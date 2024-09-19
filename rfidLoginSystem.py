@@ -67,31 +67,31 @@ class MyTableWidget(QWidget):
 
         # Initialize tab screen
         self.tabs = QTabWidget()
-        self.tab1 = QWidget()
-        self.tab2 = QWidget()
+        self.tab_log_attendance = QWidget()
+        self.tab_lookup_fob = QWidget()
         self.tab3 = QWidget()
-        self.tab4 = QWidget()
-        self.tab5 = QWidget()
+        self.tab_scra_visitor_log = QWidget()
+        self.tab_field_builders = QWidget()
         self.tabs.resize(WIDTH, HEIGHT)
 
         # Add tabs
-        self.tabs.addTab(self.tab1, "Log Attendance")
-        self.tabs.addTab(self.tab4, "SCRA Visitor Log")
-        self.tabs.addTab(self.tab5, "Field Builders Login")
-        self.tabs.addTab(self.tab2, "Lookup Fob Number")
+        self.tabs.addTab(self.tab_log_attendance, "Log Attendance")
+        self.tabs.addTab(self.tab_scra_visitor_log, "SCRA Visitor Log")
+        self.tabs.addTab(self.tab_field_builders, "Field Builders Login")
+        self.tabs.addTab(self.tab_lookup_fob, "Lookup Fob Number")
 
         # --------------------
         # Tab 1 Content
         # --------------------
-        self.tab1.layout = QGridLayout(self)
-        self.tab1.setLayout(self.tab1.layout)
-        self.tab1.setStyleSheet("background-color: #bad3fe;")
+        self.tab_log_attendance.layout = QGridLayout(self)
+        self.tab_log_attendance.setLayout(self.tab_log_attendance.layout)
+        self.tab_log_attendance.setStyleSheet("background-color: #bad3fe;")
 
         self.logo = QLabel(self)
         self.pixmap = QPixmap("logo3.png")
         self.logo.setPixmap(self.pixmap)
         self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab1.layout.addWidget(self.logo, 0, 1)
+        self.tab_log_attendance.layout.addWidget(self.logo, 0, 1)
 
         self.header = QLabel("Log your attendance at today's GoS meeting!")
         self.header.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -99,19 +99,19 @@ class MyTableWidget(QWidget):
         headerFont.setBold(True)
         self.header.setFont(headerFont)
         self.header.setStyleSheet("font-size: 35pt;")
-        self.tab1.layout.addWidget(self.header, 1, 1)
+        self.tab_log_attendance.layout.addWidget(self.header, 1, 1)
 
         self.instructions = QLabel(
             "Tap your fob to the reader to log in, or type in the number associated with your fob.\nIt may take a second or two for the log in to process."
         )
         self.instructions.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.instructions.setStyleSheet("font-size: 25pt;")
-        self.tab1.layout.addWidget(self.instructions, 2, 1)
+        self.tab_log_attendance.layout.addWidget(self.instructions, 2, 1)
 
         self.inputArea = QWidget()
         self.inputArea.layout = QGridLayout(self)
         self.inputArea.setLayout(self.inputArea.layout)
-        self.tab1.layout.addWidget(self.inputArea, 3, 1)
+        self.tab_log_attendance.layout.addWidget(self.inputArea, 3, 1)
 
         self.input = QLineEdit()
         self.input.setFixedWidth(250)
@@ -135,31 +135,31 @@ class MyTableWidget(QWidget):
         self.message = QLabel("")
         self.message.setStyleSheet("font-size: 25pt;")
         self.message.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab1.layout.addWidget(self.message, 4, 1)
+        self.tab_log_attendance.layout.addWidget(self.message, 4, 1)
 
         # --------------------
         # Tab 2 Content
         # --------------------
 
-        self.tab2.layout = QGridLayout(self)
-        self.tab2.setLayout(self.tab2.layout)
-        self.tab2.setStyleSheet("background-color: #bad3fe;")  # ffc3bf;")
+        self.tab_lookup_fob.layout = QGridLayout(self)
+        self.tab_lookup_fob.setLayout(self.tab_lookup_fob.layout)
+        self.tab_lookup_fob.setStyleSheet("background-color: #bad3fe;")  # ffc3bf;")
 
         self.header2 = QLabel("Forgot your fob? Not a problem!")
         self.header2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.header2.setFont(headerFont)
         self.header2.setStyleSheet("font-size: 35pt;")
-        self.tab2.layout.addWidget(self.header2, 1, 1)
+        self.tab_lookup_fob.layout.addWidget(self.header2, 1, 1)
 
         self.instructions2 = QLabel("Type your full name below. (Ex: Rosie Riveter)")
         self.instructions2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.instructions2.setStyleSheet("font-size: 25pt;")
-        self.tab2.layout.addWidget(self.instructions2, 2, 1)
+        self.tab_lookup_fob.layout.addWidget(self.instructions2, 2, 1)
 
         self.inputArea2 = QWidget()
         self.inputArea2.layout = QGridLayout(self)
         self.inputArea2.setLayout(self.inputArea2.layout)
-        self.tab2.layout.addWidget(self.inputArea2, 3, 1)
+        self.tab_lookup_fob.layout.addWidget(self.inputArea2, 3, 1)
 
         self.input2 = QLineEdit()
         self.input2.setFixedWidth(250)
@@ -187,7 +187,7 @@ class MyTableWidget(QWidget):
         self.message2.setTextInteractionFlags(
             Qt.TextInteractionFlag.TextSelectableByMouse
         )
-        self.tab2.layout.addWidget(self.message2, 4, 1)
+        self.tab_lookup_fob.layout.addWidget(self.message2, 4, 1)
 
         # --------------------
         # Tab 3 Content
@@ -239,9 +239,9 @@ class MyTableWidget(QWidget):
         # --------------------
         # Tab 4 Content
         # --------------------
-        self.tab4.layout = QHBoxLayout(self)
-        self.tab4.setLayout(self.tab4.layout)
-        self.tab4.setStyleSheet("background-color: #fceb7c;")
+        self.tab_scra_visitor_log.layout = QHBoxLayout(self)
+        self.tab_scra_visitor_log.setLayout(self.tab_scra_visitor_log.layout)
+        self.tab_scra_visitor_log.setStyleSheet("background-color: #fceb7c;")
 
         ##        self.label4 = QLabel("Page Under Construction")
         ##        self.label4.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -251,12 +251,12 @@ class MyTableWidget(QWidget):
         self.pixmap4 = QPixmap("SCRA2.png")
         self.logo4.setPixmap(self.pixmap4)
         self.logo4.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab4.layout.addWidget(self.logo4)
+        self.tab_scra_visitor_log.layout.addWidget(self.logo4)
 
         self.signinBox4 = QWidget()
         self.signinBox4.layout = QGridLayout(self)
         self.signinBox4.setLayout(self.signinBox4.layout)
-        self.tab4.layout.addWidget(self.signinBox4)
+        self.tab_scra_visitor_log.layout.addWidget(self.signinBox4)
 
         self.header4 = QLabel("SCRA Open Meeting Sign-In")
         self.header4.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -318,15 +318,15 @@ class MyTableWidget(QWidget):
         # --------------------
         # Tab 5 Content
         # --------------------
-        self.tab5.layout = QGridLayout(self)
-        self.tab5.setLayout(self.tab5.layout)
-        self.tab5.setStyleSheet("background-color: #bad3fe;")
+        self.tab_field_builders.layout = QGridLayout(self)
+        self.tab_field_builders.setLayout(self.tab_field_builders.layout)
+        self.tab_field_builders.setStyleSheet("background-color: #bad3fe;")
 
         self.logo5 = QLabel(self)
         self.pixmap5 = QPixmap("chargedUp.png")
         self.logo5.setPixmap(self.pixmap5)
         self.logo5.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab5.layout.addWidget(self.logo5, 0, 1)
+        self.tab_field_builders.layout.addWidget(self.logo5, 0, 1)
 
         self.header5 = QLabel("\nWelcome, Practice Field Builder!")
         self.header5.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -334,19 +334,19 @@ class MyTableWidget(QWidget):
         headerFont5.setBold(True)
         self.header5.setFont(headerFont5)
         self.header5.setStyleSheet("font-size: 35pt;")
-        self.tab5.layout.addWidget(self.header5, 1, 1)
+        self.tab_field_builders.layout.addWidget(self.header5, 1, 1)
 
         self.instructions5 = QLabel(
             "Type your name below to log your presense here today."
         )
         self.instructions5.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.instructions5.setStyleSheet("font-size: 25pt;")
-        self.tab5.layout.addWidget(self.instructions5, 2, 1)
+        self.tab_field_builders.layout.addWidget(self.instructions5, 2, 1)
 
         self.inputArea5 = QWidget()
         self.inputArea5.layout = QGridLayout(self)
         self.inputArea5.setLayout(self.inputArea5.layout)
-        self.tab5.layout.addWidget(self.inputArea5, 3, 1)
+        self.tab_field_builders.layout.addWidget(self.inputArea5, 3, 1)
 
         self.input5 = QLineEdit()
         self.input5.setFixedWidth(250)
@@ -370,7 +370,7 @@ class MyTableWidget(QWidget):
         self.message5 = QLabel("")
         self.message5.setStyleSheet("font-size: 25pt;")
         self.message5.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab5.layout.addWidget(self.message5, 4, 1)
+        self.tab_field_builders.layout.addWidget(self.message5, 4, 1)
 
         # --------------------
         # Add tabs to widget
