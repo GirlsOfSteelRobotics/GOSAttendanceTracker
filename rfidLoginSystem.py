@@ -69,7 +69,7 @@ class MyTableWidget(QWidget):
         self.tabs = QTabWidget()
         self.tab_log_attendance = QWidget()
         self.tab_lookup_fob = QWidget()
-        self.tab3 = QWidget()
+        self.tab_identify_fob = QWidget()
         self.tab_scra_visitor_log = QWidget()
         self.tab_field_builders = QWidget()
         self.tabs.resize(WIDTH, HEIGHT)
@@ -108,34 +108,34 @@ class MyTableWidget(QWidget):
         self.instructions.setStyleSheet("font-size: 25pt;")
         self.tab_log_attendance.layout.addWidget(self.instructions, 2, 1)
 
-        self.inputArea = QWidget()
-        self.inputArea.layout = QGridLayout(self)
-        self.inputArea.setLayout(self.inputArea.layout)
-        self.tab_log_attendance.layout.addWidget(self.inputArea, 3, 1)
+        self.input_area_gos_login = QWidget()
+        self.input_area_gos_login.layout = QGridLayout(self)
+        self.input_area_gos_login.setLayout(self.input_area_gos_login.layout)
+        self.tab_log_attendance.layout.addWidget(self.input_area_gos_login, 3, 1)
 
-        self.input = QLineEdit()
-        self.input.setFixedWidth(250)
-        self.input.setFixedHeight(40)
-        self.input.setStyleSheet("font-size: 25pt;")
-        self.input.returnPressed.connect(self.login)
-        self.input.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.inputArea.layout.addWidget(self.input, 0, 1)
+        self.input_gos_name = QLineEdit()
+        self.input_gos_name.setFixedWidth(250)
+        self.input_gos_name.setFixedHeight(40)
+        self.input_gos_name.setStyleSheet("font-size: 25pt;")
+        self.input_gos_name.returnPressed.connect(self.login)
+        self.input_gos_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.input_area_gos_login.layout.addWidget(self.input_gos_name, 0, 1)
 
-        self.loginButton = QPushButton("Login")
-        self.loginButton.setStyleSheet("font-size: 25pt;")
-        self.loginButton.clicked.connect(self.login)
-        self.inputArea.layout.addWidget(self.loginButton, 1, 1)
+        self.btn_login_gos = QPushButton("Login")
+        self.btn_login_gos.setStyleSheet("font-size: 25pt;")
+        self.btn_login_gos.clicked.connect(self.login)
+        self.input_area_gos_login.layout.addWidget(self.btn_login_gos, 1, 1)
 
-        self.clearButton = QPushButton("Clear")
-        self.clearButton.setStyleSheet("font-size: 25pt;")
-        self.clearButton.clicked.connect(self.input.clear)
-        self.clearButton.clicked.connect(lambda: self.message.setText(""))
-        self.inputArea.layout.addWidget(self.clearButton, 2, 1)
+        self.btn_clear_gos_name = QPushButton("Clear")
+        self.btn_clear_gos_name.setStyleSheet("font-size: 25pt;")
+        self.btn_clear_gos_name.clicked.connect(self.input_gos_name.clear)
+        self.btn_clear_gos_name.clicked.connect(lambda: self.message_gos_login.setText(""))
+        self.input_area_gos_login.layout.addWidget(self.btn_clear_gos_name, 2, 1)
 
-        self.message = QLabel("")
-        self.message.setStyleSheet("font-size: 25pt;")
-        self.message.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab_log_attendance.layout.addWidget(self.message, 4, 1)
+        self.message_gos_login = QLabel("")
+        self.message_gos_login.setStyleSheet("font-size: 25pt;")
+        self.message_gos_login.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.tab_log_attendance.layout.addWidget(self.message_gos_login, 4, 1)
 
         # --------------------
         # Tab 2 Content
@@ -145,96 +145,96 @@ class MyTableWidget(QWidget):
         self.tab_lookup_fob.setLayout(self.tab_lookup_fob.layout)
         self.tab_lookup_fob.setStyleSheet("background-color: #bad3fe;")  # ffc3bf;")
 
-        self.header2 = QLabel("Forgot your fob? Not a problem!")
-        self.header2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.header2.setFont(headerFont)
-        self.header2.setStyleSheet("font-size: 35pt;")
-        self.tab_lookup_fob.layout.addWidget(self.header2, 1, 1)
+        self.header_lookup_fob = QLabel("Forgot your fob? Not a problem!")
+        self.header_lookup_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.header_lookup_fob.setFont(headerFont)
+        self.header_lookup_fob.setStyleSheet("font-size: 35pt;")
+        self.tab_lookup_fob.layout.addWidget(self.header_lookup_fob, 1, 1)
 
-        self.instructions2 = QLabel("Type your full name below. (Ex: Rosie Riveter)")
-        self.instructions2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.instructions2.setStyleSheet("font-size: 25pt;")
-        self.tab_lookup_fob.layout.addWidget(self.instructions2, 2, 1)
+        self.instructions_lookup_fob = QLabel("Type your full name below. (Ex: Rosie Riveter)")
+        self.instructions_lookup_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.instructions_lookup_fob.setStyleSheet("font-size: 25pt;")
+        self.tab_lookup_fob.layout.addWidget(self.instructions_lookup_fob, 2, 1)
 
-        self.inputArea2 = QWidget()
-        self.inputArea2.layout = QGridLayout(self)
-        self.inputArea2.setLayout(self.inputArea2.layout)
-        self.tab_lookup_fob.layout.addWidget(self.inputArea2, 3, 1)
+        self.input_area_lookup_fob = QWidget()
+        self.input_area_lookup_fob.layout = QGridLayout(self)
+        self.input_area_lookup_fob.setLayout(self.input_area_lookup_fob.layout)
+        self.tab_lookup_fob.layout.addWidget(self.input_area_lookup_fob, 3, 1)
 
-        self.input2 = QLineEdit()
-        self.input2.setFixedWidth(250)
-        self.input2.setFixedHeight(40)
-        self.input2.returnPressed.connect(self.searchID)
+        self.input_fob_lookup = QLineEdit()
+        self.input_fob_lookup.setFixedWidth(250)
+        self.input_fob_lookup.setFixedHeight(40)
+        self.input_fob_lookup.returnPressed.connect(self.searchID)
         # self.input.setStyleSheet("height: 100px;")
-        self.input2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.input2.setStyleSheet("font-size: 25pt;")
-        self.inputArea2.layout.addWidget(self.input2, 0, 1)
+        self.input_fob_lookup.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.input_fob_lookup.setStyleSheet("font-size: 25pt;")
+        self.input_area_lookup_fob.layout.addWidget(self.input_fob_lookup, 0, 1)
 
-        self.searchButton = QPushButton("Search")
-        self.searchButton.clicked.connect(self.searchID)
-        self.searchButton.setStyleSheet("font-size: 25pt;")
-        self.inputArea2.layout.addWidget(self.searchButton, 1, 1)
+        self.btn_search_fob = QPushButton("Search")
+        self.btn_search_fob.clicked.connect(self.searchID)
+        self.btn_search_fob.setStyleSheet("font-size: 25pt;")
+        self.input_area_lookup_fob.layout.addWidget(self.btn_search_fob, 1, 1)
 
-        self.clearButton2 = QPushButton("Clear")
-        self.clearButton2.clicked.connect(self.input2.clear)
-        self.clearButton2.clicked.connect(lambda: self.message2.setText(""))
-        self.clearButton2.setStyleSheet("font-size: 25pt;")
-        self.inputArea2.layout.addWidget(self.clearButton2, 2, 1)
+        self.btn_clear_lookup_fob = QPushButton("Clear")
+        self.btn_clear_lookup_fob.clicked.connect(self.input_fob_lookup.clear)
+        self.btn_clear_lookup_fob.clicked.connect(lambda: self.message_fob_lookup.setText(""))
+        self.btn_clear_lookup_fob.setStyleSheet("font-size: 25pt;")
+        self.input_area_lookup_fob.layout.addWidget(self.btn_clear_lookup_fob, 2, 1)
 
-        self.message2 = QLabel("")
-        self.message2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.message2.setStyleSheet("font-size: 25pt;")
-        self.message2.setTextInteractionFlags(
+        self.message_fob_lookup = QLabel("")
+        self.message_fob_lookup.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.message_fob_lookup.setStyleSheet("font-size: 25pt;")
+        self.message_fob_lookup.setTextInteractionFlags(
             Qt.TextInteractionFlag.TextSelectableByMouse
         )
-        self.tab_lookup_fob.layout.addWidget(self.message2, 4, 1)
+        self.tab_lookup_fob.layout.addWidget(self.message_fob_lookup, 4, 1)
 
         # --------------------
         # Tab 3 Content
         # --------------------
 
-        self.tab3.layout = QGridLayout(self)
-        self.tab3.setLayout(self.tab3.layout)
-        self.tab3.setStyleSheet("background-color: #bad3fe;")  # ffffff;")
+        self.tab_identify_fob.layout = QGridLayout(self)
+        self.tab_identify_fob.setLayout(self.tab_identify_fob.layout)
+        self.tab_identify_fob.setStyleSheet("background-color: #bad3fe;")  # ffffff;")
 
-        self.header3 = QLabel("Found a lost fob, but don't know whose it is?")
-        self.header3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.header3.setFont(headerFont)
-        self.header3.setStyleSheet("font-size: 35pt;")
-        self.tab3.layout.addWidget(self.header3, 1, 1)
+        self.header_lost_fob = QLabel("Found a lost fob, but don't know whose it is?")
+        self.header_lost_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.header_lost_fob.setFont(headerFont)
+        self.header_lost_fob.setStyleSheet("font-size: 35pt;")
+        self.tab_identify_fob.layout.addWidget(self.header_lost_fob, 1, 1)
 
-        self.instructions3 = QLabel("Scan the fob and find out who it belongs to!")
-        self.instructions3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.instructions3.setStyleSheet("font-size: 25pt;")
-        self.tab3.layout.addWidget(self.instructions3, 2, 1)
+        self.instructions_lost_fob = QLabel("Scan the fob and find out who it belongs to!")
+        self.instructions_lost_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.instructions_lost_fob.setStyleSheet("font-size: 25pt;")
+        self.tab_identify_fob.layout.addWidget(self.instructions_lost_fob, 2, 1)
 
-        self.inputArea3 = QWidget()
-        self.inputArea3.layout = QGridLayout(self)
-        self.inputArea3.setLayout(self.inputArea3.layout)
-        self.tab3.layout.addWidget(self.inputArea3, 3, 1)
+        self.input_area_search_fob = QWidget()
+        self.input_area_search_fob.layout = QGridLayout(self)
+        self.input_area_search_fob.setLayout(self.input_area_search_fob.layout)
+        self.tab_identify_fob.layout.addWidget(self.input_area_search_fob, 3, 1)
 
-        self.input3 = QLineEdit()
-        self.input3.setFixedWidth(250)
-        self.input3.setFixedHeight(40)
-        self.input3.setStyleSheet("font-size: 25pt;")
-        self.input3.returnPressed.connect(self.identifyFob)
-        self.input3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.inputArea3.layout.addWidget(self.input3, 0, 1)
+        self.input_identify_fob = QLineEdit()
+        self.input_identify_fob.setFixedWidth(250)
+        self.input_identify_fob.setFixedHeight(40)
+        self.input_identify_fob.setStyleSheet("font-size: 25pt;")
+        self.input_identify_fob.returnPressed.connect(self.identifyFob)
+        self.input_identify_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.input_area_search_fob.layout.addWidget(self.input_identify_fob, 0, 1)
 
         self.searchButton3 = QPushButton("Search")
         self.searchButton3.clicked.connect(self.identifyFob)
         self.searchButton3.setStyleSheet("font-size: 25pt;")
-        self.inputArea3.layout.addWidget(self.searchButton3, 1, 1)
+        self.input_area_search_fob.layout.addWidget(self.searchButton3, 1, 1)
 
         self.clearButton3 = QPushButton("Clear")
-        self.clearButton3.clicked.connect(self.input3.clear)
+        self.clearButton3.clicked.connect(self.input_identify_fob.clear)
         self.clearButton3.setStyleSheet("font-size: 25pt;")
-        self.inputArea3.layout.addWidget(self.clearButton3, 2, 1)
+        self.input_area_search_fob.layout.addWidget(self.clearButton3, 2, 1)
 
-        self.message3 = QLabel("")
-        self.message3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.message3.setStyleSheet("font-size: 25pt;")
-        self.tab3.layout.addWidget(self.message3, 4, 1)
+        self.message_identify_fob = QLabel("")
+        self.message_identify_fob.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.message_identify_fob.setStyleSheet("font-size: 25pt;")
+        self.tab_identify_fob.layout.addWidget(self.message_identify_fob, 4, 1)
 
         # --------------------
         # Tab 4 Content
@@ -247,73 +247,73 @@ class MyTableWidget(QWidget):
         ##        self.label4.setAlignment(Qt.AlignmentFlag.AlignCenter)
         ##        self.tab4.layout.addWidget(self.label4)
 
-        self.logo4 = QLabel(self)
-        self.pixmap4 = QPixmap("SCRA2.png")
-        self.logo4.setPixmap(self.pixmap4)
-        self.logo4.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab_scra_visitor_log.layout.addWidget(self.logo4)
+        self.scra_logo = QLabel(self)
+        self.scra_pixmap = QPixmap("SCRA2.png")
+        self.scra_logo.setPixmap(self.scra_pixmap)
+        self.scra_logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.tab_scra_visitor_log.layout.addWidget(self.scra_logo)
 
         self.signinBox4 = QWidget()
         self.signinBox4.layout = QGridLayout(self)
         self.signinBox4.setLayout(self.signinBox4.layout)
         self.tab_scra_visitor_log.layout.addWidget(self.signinBox4)
 
-        self.header4 = QLabel("SCRA Open Meeting Sign-In")
-        self.header4.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.header_scra_signin = QLabel("SCRA Open Meeting Sign-In")
+        self.header_scra_signin.setAlignment(Qt.AlignmentFlag.AlignCenter)
         headerFont4 = QFont()
         headerFont4.setBold(True)
-        self.header4.setFont(headerFont)
-        self.header4.setStyleSheet("font-size: 35pt;")
-        self.signinBox4.layout.addWidget(self.header4, 0, 0)
+        self.header_scra_signin.setFont(headerFont)
+        self.header_scra_signin.setStyleSheet("font-size: 35pt;")
+        self.signinBox4.layout.addWidget(self.header_scra_signin, 0, 0)
 
         self.inputArea4 = QWidget()
         self.inputArea4.layout = QGridLayout(self)
         self.inputArea4.setLayout(self.inputArea4.layout)
         self.signinBox4.layout.addWidget(self.inputArea4, 1, 0)
 
-        self.instructions4a = QLabel("Name:")
-        self.instructions4a.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.instructions4a.setStyleSheet("font-size: 25pt;")
-        self.inputArea4.layout.addWidget(self.instructions4a, 0, 1)
+        self.lbl_scra_name = QLabel("Name:")
+        self.lbl_scra_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.lbl_scra_name.setStyleSheet("font-size: 25pt;")
+        self.inputArea4.layout.addWidget(self.lbl_scra_name, 0, 1)
 
-        self.instructions4b = QLabel("Team Number:")
-        self.instructions4b.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.instructions4b.setStyleSheet("font-size: 25pt;")
-        self.inputArea4.layout.addWidget(self.instructions4b, 1, 1)
+        self.lbl_scra_team_number = QLabel("Team Number:")
+        self.lbl_scra_team_number.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.lbl_scra_team_number.setStyleSheet("font-size: 25pt;")
+        self.inputArea4.layout.addWidget(self.lbl_scra_team_number, 1, 1)
 
-        self.input4a = QLineEdit()
-        self.input4a.setFixedWidth(250)
-        self.input4a.setFixedHeight(40)
-        self.input4a.setStyleSheet("font-size: 25pt;")
-        self.input4a.returnPressed.connect(self.logVisit)
-        self.input4a.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.inputArea4.layout.addWidget(self.input4a, 0, 2)
+        self.input_visit_name = QLineEdit()
+        self.input_visit_name.setFixedWidth(250)
+        self.input_visit_name.setFixedHeight(40)
+        self.input_visit_name.setStyleSheet("font-size: 25pt;")
+        self.input_visit_name.returnPressed.connect(self.logVisit)
+        self.input_visit_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.inputArea4.layout.addWidget(self.input_visit_name, 0, 2)
 
-        self.input4b = QLineEdit()
-        self.input4b.setFixedWidth(250)
-        self.input4b.setFixedHeight(40)
-        self.input4b.setStyleSheet("font-size: 25pt;")
-        self.input4b.returnPressed.connect(self.logVisit)
-        self.input4b.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.inputArea4.layout.addWidget(self.input4b, 1, 2)
+        self.input_visit_team = QLineEdit()
+        self.input_visit_team.setFixedWidth(250)
+        self.input_visit_team.setFixedHeight(40)
+        self.input_visit_team.setStyleSheet("font-size: 25pt;")
+        self.input_visit_team.returnPressed.connect(self.logVisit)
+        self.input_visit_team.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.inputArea4.layout.addWidget(self.input_visit_team, 1, 2)
 
-        self.loginButton4 = QPushButton("Submit")
-        self.loginButton4.setFixedWidth(250)
-        self.loginButton4.setStyleSheet("font-size: 25pt;")
-        self.loginButton4.clicked.connect(self.logVisit)
-        self.signinBox4.layout.addWidget(self.loginButton4, 2, 1)
+        self.btn_scra_login = QPushButton("Submit")
+        self.btn_scra_login.setFixedWidth(250)
+        self.btn_scra_login.setStyleSheet("font-size: 25pt;")
+        self.btn_scra_login.clicked.connect(self.logVisit)
+        self.signinBox4.layout.addWidget(self.btn_scra_login, 2, 1)
 
-        self.clearButton4 = QPushButton("Clear")
-        self.clearButton4.setFixedWidth(250)
-        self.clearButton4.setStyleSheet("font-size: 25pt;")
-        self.clearButton4.clicked.connect(self.input.clear)
-        self.clearButton4.clicked.connect(lambda: self.message4.setText(""))
-        self.signinBox4.layout.addWidget(self.clearButton4, 4, 1)
+        self.btn_scra_clear = QPushButton("Clear")
+        self.btn_scra_clear.setFixedWidth(250)
+        self.btn_scra_clear.setStyleSheet("font-size: 25pt;")
+        self.btn_scra_clear.clicked.connect(self.input_gos_name.clear)
+        self.btn_scra_clear.clicked.connect(lambda: self.message_visit.setText(""))
+        self.signinBox4.layout.addWidget(self.btn_scra_clear, 4, 1)
 
-        self.message4 = QLabel("")
-        self.message4.setStyleSheet("font-size: 25pt;")
-        self.message4.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.signinBox4.layout.addWidget(self.message4, 5, 0)
+        self.message_visit = QLabel("")
+        self.message_visit.setStyleSheet("font-size: 25pt;")
+        self.message_visit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.signinBox4.layout.addWidget(self.message_visit, 5, 0)
 
         # --------------------
         # Tab 5 Content
@@ -322,55 +322,55 @@ class MyTableWidget(QWidget):
         self.tab_field_builders.setLayout(self.tab_field_builders.layout)
         self.tab_field_builders.setStyleSheet("background-color: #bad3fe;")
 
-        self.logo5 = QLabel(self)
-        self.pixmap5 = QPixmap("chargedUp.png")
-        self.logo5.setPixmap(self.pixmap5)
-        self.logo5.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab_field_builders.layout.addWidget(self.logo5, 0, 1)
+        self.game_logo = QLabel(self)
+        self.game_pixmap = QPixmap("chargedUp.png")
+        self.game_logo.setPixmap(self.game_pixmap)
+        self.game_logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.tab_field_builders.layout.addWidget(self.game_logo, 0, 1)
 
-        self.header5 = QLabel("\nWelcome, Practice Field Builder!")
-        self.header5.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.header_field_builder = QLabel("\nWelcome, Practice Field Builder!")
+        self.header_field_builder.setAlignment(Qt.AlignmentFlag.AlignCenter)
         headerFont5 = QFont()
         headerFont5.setBold(True)
-        self.header5.setFont(headerFont5)
-        self.header5.setStyleSheet("font-size: 35pt;")
-        self.tab_field_builders.layout.addWidget(self.header5, 1, 1)
+        self.header_field_builder.setFont(headerFont5)
+        self.header_field_builder.setStyleSheet("font-size: 35pt;")
+        self.tab_field_builders.layout.addWidget(self.header_field_builder, 1, 1)
 
-        self.instructions5 = QLabel(
-            "Type your name below to log your presense here today."
+        self.instructions_field_builder = QLabel(
+            "Type your name below to log your presence here today."
         )
-        self.instructions5.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.instructions5.setStyleSheet("font-size: 25pt;")
-        self.tab_field_builders.layout.addWidget(self.instructions5, 2, 1)
+        self.instructions_field_builder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.instructions_field_builder.setStyleSheet("font-size: 25pt;")
+        self.tab_field_builders.layout.addWidget(self.instructions_field_builder, 2, 1)
 
         self.inputArea5 = QWidget()
         self.inputArea5.layout = QGridLayout(self)
         self.inputArea5.setLayout(self.inputArea5.layout)
         self.tab_field_builders.layout.addWidget(self.inputArea5, 3, 1)
 
-        self.input5 = QLineEdit()
-        self.input5.setFixedWidth(250)
-        self.input5.setFixedHeight(40)
-        self.input5.setStyleSheet("font-size: 25pt;")
-        self.input5.returnPressed.connect(self.logBuilder)
-        self.input5.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.inputArea5.layout.addWidget(self.input5, 0, 1)
+        self.input_builder_name = QLineEdit()
+        self.input_builder_name.setFixedWidth(250)
+        self.input_builder_name.setFixedHeight(40)
+        self.input_builder_name.setStyleSheet("font-size: 25pt;")
+        self.input_builder_name.returnPressed.connect(self.logBuilder)
+        self.input_builder_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.inputArea5.layout.addWidget(self.input_builder_name, 0, 1)
 
         self.loginButton5 = QPushButton("Log Attendance")
         self.loginButton5.setStyleSheet("font-size: 25pt;")
         self.loginButton5.clicked.connect(self.logBuilder)
         self.inputArea5.layout.addWidget(self.loginButton5, 1, 1)
 
-        self.clearButton5 = QPushButton("Clear")
-        self.clearButton5.setStyleSheet("font-size: 25pt;")
-        self.clearButton5.clicked.connect(self.input.clear)
-        self.clearButton5.clicked.connect(lambda: self.message5.setText(""))
-        self.inputArea5.layout.addWidget(self.clearButton, 2, 1)
+        self.btn_clear_field_builder = QPushButton("Clear")
+        self.btn_clear_field_builder.setStyleSheet("font-size: 25pt;")
+        self.btn_clear_field_builder.clicked.connect(self.input_gos_name.clear)
+        self.btn_clear_field_builder.clicked.connect(lambda: self.message_builder.setText(""))
+        self.inputArea5.layout.addWidget(self.btn_clear_gos_name, 2, 1)
 
-        self.message5 = QLabel("")
-        self.message5.setStyleSheet("font-size: 25pt;")
-        self.message5.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tab_field_builders.layout.addWidget(self.message5, 4, 1)
+        self.message_builder = QLabel("")
+        self.message_builder.setStyleSheet("font-size: 25pt;")
+        self.message_builder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.tab_field_builders.layout.addWidget(self.message_builder, 4, 1)
 
         # --------------------
         # Add tabs to widget
@@ -378,121 +378,121 @@ class MyTableWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
-        self.input5.setFocus()
-        self.input4a.setFocus()
-        self.input3.setFocus()
-        self.input2.setFocus()
-        self.input.setFocus()
+        self.input_builder_name.setFocus()
+        self.input_visit_name.setFocus()
+        self.input_identify_fob.setFocus()
+        self.input_fob_lookup.setFocus()
+        self.input_gos_name.setFocus()
 
     def login(self):
-        ID = self.input.text()
+        ID = self.input_gos_name.text()
 
         if ID == "":
-            self.message.setText("")
+            self.message_gos_login.setText("")
             return None
 
         try:
             ID = int(ID)
         except:
-            self.message.setText("Make sure the input is a number.")
+            self.message_gos_login.setText("Make sure the input is a number.")
 
         name = lookupName(ID)
 
         if name != None:
 
             logAttendance(SPREADSHEET_KEY, name, ID)
-            self.input.clear()
-            self.message.setText(name + " is logged in.")
+            self.input_gos_name.clear()
+            self.message_gos_login.setText(name + " is logged in.")
 
         else:
             print("Error! ID number is not associated with a name.")
-            self.message.setText("Error! Problem logging in.")
-            self.input.clear()
+            self.message_gos_login.setText("Error! Problem logging in.")
+            self.input_gos_name.clear()
 
     def searchID(self):
         # print("HI")
-        name = self.input2.text()
+        name = self.input_fob_lookup.text()
         ID = lookupID(name)
 
         if name == "":
-            self.message2.setText("")
+            self.message_fob_lookup.setText("")
             return None
 
         if ID != None:
 
             print("Name: " + name)
-            self.input2.clear()
-            self.message2.setText("ID Number: " + str(ID))
-            self.input2.setFocus()
+            self.input_fob_lookup.clear()
+            self.message_fob_lookup.setText("ID Number: " + str(ID))
+            self.input_fob_lookup.setFocus()
 
             # Log in the user, then switch back to the main tab
             logAttendance(SPREADSHEET_KEY, name, ID)
             self.tabs.setCurrentIndex(0)
-            self.input.clear()
-            self.message.setText(name + " is logged in.")
+            self.input_gos_name.clear()
+            self.message_gos_login.setText(name + " is logged in.")
 
         else:
             print("Error! ID number is not associated with a name.")
-            self.message2.setText("Error! Name not found in database.")
-            self.input2.clear()
-            self.input2.setFocus()
+            self.message_fob_lookup.setText("Error! Name not found in database.")
+            self.input_fob_lookup.clear()
+            self.input_fob_lookup.setFocus()
 
     def identifyFob(self):
-        ID = self.input3.text()
+        ID = self.input_identify_fob.text()
 
         if ID == "":
-            self.message3.setText("")
+            self.message_identify_fob.setText("")
             return None
 
         try:
             ID = int(ID)
         except:
-            self.message3.setText("Make sure the input is a number.")
+            self.message_identify_fob.setText("Make sure the input is a number.")
 
         name = lookupName(ID)
 
         if name != None:
 
-            self.input3.clear()
-            self.message3.setText("Fob " + str(ID) + " belongs to " + name + ".")
+            self.input_identify_fob.clear()
+            self.message_identify_fob.setText("Fob " + str(ID) + " belongs to " + name + ".")
 
         else:
-            self.message3.setText("Error! ID number is not associated with a name.")
-            self.input3.clear()
+            self.message_identify_fob.setText("Error! ID number is not associated with a name.")
+            self.input_identify_fob.clear()
 
     def logVisit(self):
-        team = self.input4b.text()
-        name = self.input4a.text()
+        team = self.input_visit_team.text()
+        name = self.input_visit_name.text()
 
         if name == "":
-            self.message4.setText("")
+            self.message_visit.setText("")
             return None
 
         if team == "":
-            self.message4.setText(
+            self.message_visit.setText(
                 "Please include a team number. If unaffiliated, write n/a."
             )
             return None
 
         logVisitor(SPREADSHEET_KEY, name, team)
-        self.input4a.clear()
-        self.input4b.clear()
-        self.message4.setText("Welcome " + name + "!")
-        self.input4a.setFocus()
+        self.input_visit_name.clear()
+        self.input_visit_team.clear()
+        self.message_visit.setText("Welcome " + name + "!")
+        self.input_visit_name.setFocus()
 
     def logBuilder(self):
-        name = self.input5.text()
+        name = self.input_builder_name.text()
 
         if name == "":
-            self.message5.setText("")
+            self.message_builder.setText("")
             return None
 
         else:
 
             logBuilderInSheet(SPREADSHEET_KEY, name)
-            self.input5.clear()
-            self.message5.setText(name + " is logged in.")
-            self.input5.setFocus()
+            self.input_builder_name.clear()
+            self.message_builder.setText(name + " is logged in.")
+            self.input_builder_name.setFocus()
 
 
 # -----------------------------------------------------------------------
