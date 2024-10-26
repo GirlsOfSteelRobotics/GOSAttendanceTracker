@@ -588,7 +588,11 @@ def log_attendance(service_key, name, id_num):
             if len(last_row) == 4:
                 # They logged in today so log them out
                 sheet_tab.update_cell(last_row_num, 5, current_time.strftime("%m/%d/%y %H:%M %p"))
-                return f"{name} is logged out."
+                time_diff = current_time-last_logged_date
+                hours_logged = int(time_diff.seconds / 3600)
+                minutes_logged = int(time_diff.seconds % 60)
+
+                return f"{name} is logged out with {hours_logged} hr {minutes_logged} minutes logged."
             elif len(last_row) != 5:
                 print("Error! ID number is not associated with a name.")
                 return "Error! Problem logging in."
