@@ -581,13 +581,13 @@ def log_attendance(service_key, name, id_num):
         last_cell = cell_list[-1]
         last_row_num = last_cell.row
         last_row = sheet_tab.row_values(last_row_num)
-        last_logged_date = dt.datetime.strptime(last_row[0], "%c")
+        last_logged_date = dt.datetime.strptime(last_row[0], "%Y-%m-%d %H:%M:%S")
         today = dt.date.today()
 
         if today == last_logged_date.date():
             if len(last_row) == 4:
                 # They logged in today so log them out
-                sheet_tab.update_cell(last_row_num, 5, current_time.strftime("%c"))
+                sheet_tab.update_cell(last_row_num, 5, current_time.strftime("%Y-%m-%d %H:%M:%S"))
                 return f"{name} is logged out."
             elif len(last_row) != 5:
                 print("Error! ID number is not associated with a name.")
@@ -596,7 +596,7 @@ def log_attendance(service_key, name, id_num):
     # They logged in and out today, so add another row OR...
     # They haven't logged in today, so log them in OR...
     # User never logged in. Just add it.
-    sheet_tab.append_row([current_time.strftime("%c"), id_num, name, "General Meeting"])
+    sheet_tab.append_row([current_time.strftime("%Y-%m-%d %H:%M:%S"), id_num, name, "General Meeting"])
     return f"{name} is logged in."
 
 
@@ -604,14 +604,14 @@ def log_visitor(service_key, name, team):
     google_sheet = connection.open_by_key(service_key)
     current_time = dt.datetime.now()
     sheet_tab = google_sheet.worksheet("SCRA Visitor Attendance")
-    sheet_tab.append_row([current_time.strftime("%c"), team, name, "SCRA Open Meeting"])
+    sheet_tab.append_row([current_time.strftime("%Y-%m-%d %H:%M:%S"), team, name, "SCRA Open Meeting"])
 
 
 def log_builder_in_sheet(service_key, name):
     google_sheet = connection.open_by_key(service_key)
     current_time = dt.datetime.now()
     sheet_tab = google_sheet.worksheet("Field Builder Attendance")
-    sheet_tab.append_row([current_time.strftime("%c"), name])
+    sheet_tab.append_row([current_time.strftime("%Y-%m-%d %H:%M:%S"), name])
 
 
 # -----------------------------------------------------------------------
