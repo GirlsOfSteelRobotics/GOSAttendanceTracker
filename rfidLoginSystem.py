@@ -588,7 +588,7 @@ def log_attendance(service_key, name, id_num):
             if len(last_row) == 4:
                 # They logged in today so log them out
                 sheet_tab.update_cell(
-                    last_row_num, 5, current_time.strftime("%m/%d/%y %I:%M %p")
+                    last_row_num, 5, format_time(current_time)
                 )
                 time_diff = current_time - last_logged_date
                 hours_logged = int(time_diff.seconds / 3600)
@@ -603,9 +603,13 @@ def log_attendance(service_key, name, id_num):
     # They haven't logged in today, so log them in OR...
     # User never logged in. Just add it.
     sheet_tab.append_row(
-        [current_time.strftime("%m/%d/%y %I:%M %p"), id_num, name, "General Meeting"]
+        [format_time(current_time), id_num, name, "General Meeting"], value_input_option = 'USER_ENTERED'
     )
     return f"{name} is logged in."
+
+
+def format_time(current_time) -> str:
+    return current_time.strftime("%m/%d/%y %I:%M %p")
 
 
 def log_visitor(service_key, name, team):
@@ -613,7 +617,7 @@ def log_visitor(service_key, name, team):
     current_time = dt.datetime.now()
     sheet_tab = google_sheet.worksheet("SCRA Visitor Attendance")
     sheet_tab.append_row(
-        [current_time.strftime("%m/%d/%y %I:%M %p"), team, name, "SCRA Open Meeting"]
+        [format_time(current_time), team, name, "SCRA Open Meeting"]
     )
 
 
@@ -621,7 +625,7 @@ def log_builder_in_sheet(service_key, name):
     google_sheet = connection.open_by_key(service_key)
     current_time = dt.datetime.now()
     sheet_tab = google_sheet.worksheet("Field Builder Attendance")
-    sheet_tab.append_row([current_time.strftime("%m/%d/%y %H:%M %p"), name])
+    sheet_tab.append_row([format_time(current_time), name])
 
 
 # -----------------------------------------------------------------------
