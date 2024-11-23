@@ -94,7 +94,7 @@ class GoogleSheetsBackend(Backend):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', help='Command to run')
+    parser.add_argument("command", help="Command to run")
     args = parser.parse_args()
 
     if args.command == "download":

@@ -24,21 +24,28 @@ class DataContainer:
 
     def __annotate_gos_attendance(self):
 
-        self.gos_attendance["Missing Logout"] = self.gos_attendance["Date Out"].isnull() | (self.gos_attendance["Date Out"] == "")
+        self.gos_attendance["Missing Logout"] = self.gos_attendance[
+            "Date Out"
+        ].isnull() | (self.gos_attendance["Date Out"] == "")
 
         self.gos_attendance["Date In"] = pd.to_datetime(
             self.gos_attendance["Date In"], format="%m/%d/%y %I:%M %p"
         )
 
         no_logout = self.gos_attendance["Missing Logout"]
-        self.gos_attendance.loc[no_logout, "Date Out"] = self.gos_attendance["Date In"][no_logout] + datetime.timedelta(hours=NO_LOGOUT_HOURS_ASSUMPTION)
+        self.gos_attendance.loc[no_logout, "Date Out"] = self.gos_attendance["Date In"][
+            no_logout
+        ] + datetime.timedelta(hours=NO_LOGOUT_HOURS_ASSUMPTION)
 
         self.gos_attendance["Date Out"] = pd.to_datetime(
             self.gos_attendance["Date Out"], format="%m/%d/%y %I:%M %p"
         )
-        self.gos_attendance["Hours Attended"] = (self.gos_attendance["Date Out"] - self.gos_attendance["Date In"]).dt.total_seconds() / (60 * 60)
+        self.gos_attendance["Hours Attended"] = (
+            self.gos_attendance["Date Out"] - self.gos_attendance["Date In"]
+        ).dt.total_seconds() / (60 * 60)
 
     def __strip_names(self):
         self.gos_attendance = self.gos_attendance.drop("Student Name", axis=1)
+
 
 data_container = DataContainer()

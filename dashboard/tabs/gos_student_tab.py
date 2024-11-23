@@ -4,7 +4,11 @@ from dashboard.data_container import data_container
 import pandas as pd
 
 
-from dashboard.plotting import create_gos_attendance_plot, create_gos_hours_per_meeting_plot, create_gos_hours_sum_plot
+from dashboard.plotting import (
+    create_gos_attendance_plot,
+    create_gos_hours_per_meeting_plot,
+    create_gos_hours_sum_plot,
+)
 from dashboard.utils import get_gos_user_data
 
 

@@ -41,9 +41,7 @@ class LocalBackend(Backend):
         )
 
     def log_visitor(self, name: str, team_number: str) -> None:
-        self.__log_attendance(
-            LocalBackend.SCRA_ATTENDANCE, [team_number, name]
-        )
+        self.__log_attendance(LocalBackend.SCRA_ATTENDANCE, [team_number, name])
 
     def log_field_builder(self, name: str) -> None:
         self.__log_attendance(LocalBackend.FIELD_ATTENDANCE, [name])
