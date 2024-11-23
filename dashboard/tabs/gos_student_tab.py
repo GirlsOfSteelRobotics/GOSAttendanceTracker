@@ -12,7 +12,7 @@ from dashboard.utils import get_gos_user_data
 def gos_student_tab_ui():
     return ui.page_sidebar(
         ui.sidebar(
-            ui.input_text("rfid_input", "RFID", "3325769"),
+            ui.input_text("rfid_input", "RFID"),
             title="ID Number",
         ),
         ui.page_fluid(
@@ -79,7 +79,10 @@ def gos_student_tab_server(input: Inputs, output: Outputs, session: Session):
 
     @render.data_frame
     def raw_data():
-        user_data = pd.DataFrame.copy(filter_by_user())
+        user_data = filter_by_user()
+        if user_data is None:
+            return None
+        user_data = pd.DataFrame.copy(user_data)
         user_data["Date In"] = user_data["Date In"].dt.strftime("%Y-%m-%d %H:%M")
         user_data["Date Out"] = user_data["Date Out"].dt.strftime("%Y-%m-%d %H:%M")
         return render.DataGrid(user_data, filters=True)
@@ -87,10 +90,13 @@ def gos_student_tab_server(input: Inputs, output: Outputs, session: Session):
     @render.text
     def days_attended():
         user_data = filter_by_user()
+        if user_data is None:
+            return "Select Student"
         return f"{user_data.count(numeric_only=True)['Hours Attended']}"
 
     @render.text
     def hours_logged():
         user_data = filter_by_user()
-        print(user_data.sum(numeric_only=True)['Hours Attended'])
+        if user_data is None:
+            return "Select Student"
         return f"{user_data.sum(numeric_only=True)['Hours Attended']:.2f}"
